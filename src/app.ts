@@ -7,6 +7,7 @@ import { globalErrorHandler } from './app/middleware/globalErrorHandler';
 
 import routes from './app/routes';
 
+
 const app: Application = express();
 
 // parser
@@ -21,6 +22,14 @@ app.use('/api/v1', routes);
 
 
 
+
+
 app.use(globalErrorHandler);
+
+
+
+     
+
+
 
 export default app;

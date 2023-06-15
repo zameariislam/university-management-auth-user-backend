@@ -2,12 +2,14 @@ import { ErrorRequestHandler } from "express"
 import configure from "../../configure"
 import { IGenericErrorMessage } from "../../interfaces/error";
 import { handleValidationError } from "../../errors/handleValidationError";
-import { ApiError } from "../../errors/ApiError";
+
 import { handleZodError } from "../../errors/handleZodError";
+import ApiError from "../../errors/ApiError";
 
-export const globalErrorHandler:ErrorRequestHandler=(error, req, res, next) => {
 
-   
+export const globalErrorHandler:ErrorRequestHandler=(error, req,res, next) => {
+
+
 
     let statusCode=500;
     let message='Something Went  Wrong !';
@@ -31,7 +33,24 @@ export const globalErrorHandler:ErrorRequestHandler=(error, req, res, next) => {
         errorMessages=simplifiedError.errorMessages
         
     }
+
+    else if (error instanceof ApiError)  {
+        
+       
+        statusCode = error.statusCode;
+        message = error.message;
+        errorMessages = error?.message
+          ? [
+              {
+                path: '',
+                message: error?.message,
+              },
+            ]
+          : [];
+      }
+
     else if(error instanceof Error ){
+        console.log('I am from Error')
         message=error?.message;
         errorMessages= error?.message?[
             {
@@ -43,23 +62,12 @@ export const globalErrorHandler:ErrorRequestHandler=(error, req, res, next) => {
         ]:[]
 
     }
-    else if (error instanceof ApiError) {
-         console.log('ApiError here',error)
-        statusCode = error?.statusCode;
-        message = error.message;
-        errorMessages = error?.message
-          ? [
-              {
-                path: '',
-                message: error?.message,
-              },
-            ]
-          : [];
-      }
+   
+
     
 
-    res. status(statusCode).json({
-
+    res.status(statusCode).json({
+        
         success:'fail',
         message,
         errorMessages,

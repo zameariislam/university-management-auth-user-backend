@@ -20,12 +20,20 @@ const createSemester: RequestHandler = async (req, res, next) => {
 
     })
 
+    // res.status(200).json({
+    //   success: true,
+    //   message: ' Academic Semester is Created Successfully !',
+    //   data: result,
+    // });
     next()
 
   }
   catch(error){
 
-    console.log('Error from controller')
+  
+    // res.json({error})
+
+    
     next(error)
 
   }

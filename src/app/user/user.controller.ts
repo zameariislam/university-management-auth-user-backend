@@ -20,7 +20,6 @@ const createUser = catchAsync(async (req:Request, res:Response, next:NextFunctio
     data:result
 
   })
-
   
   next()
 

@@ -1,4 +1,5 @@
-import { ApiError } from '../../../errors/ApiError';
+
+import ApiError from '../../../errors/ApiError';
 import { academicSemesterTitleCodeMapper } from './academicSemester.constant';
 import { IAcademicSemester } from './academicSemester.interface';
 import { AcademicSemester } from './academicsemester.model';
